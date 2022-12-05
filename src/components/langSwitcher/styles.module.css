@@ -7,10 +7,23 @@
 }
 
 .langItem {
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 17px;
   color: black;
+  transition: opacity 0.5s;
+}
+
+.langItem:hover {
+  opacity: 0.7;
+}
+
+.langItem_current {
+  font-weight: 600;
+  cursor: default;
+}
+
+.langItem_current:hover {
+  opacity: 1;
 }

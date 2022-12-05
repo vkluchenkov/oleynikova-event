@@ -1,3 +1,16 @@
 {
-  "h1": "To jest POlski"
+  "h1": "Ekaterina Oleynikova",
+  "h2": "Intensive dance weekend in Warsaw",
+  "until": "do",
+  "after": "od",
+  "indiv": "Prywatna lekcja ",
+  "indivPrice": "250zł / 1g",
+  "ws1": {
+    "title": "Technika i combinacji",
+    "level": "poziom open – dla wszystkich"
+  },
+  "ws2": {
+    "title": "Pop song choreografia",
+    "level": "sredniozaaw. + zaawansowany poziom"
+  }
 }

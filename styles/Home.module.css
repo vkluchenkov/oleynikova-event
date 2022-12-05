@@ -1,129 +1,149 @@
-.container {
-  padding: 0 2rem;
-}
-
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
+.pageContainer {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.footer {
+.header {
   display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+.logoWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+  aspect-ratio: 232/55;
+  margin: 0 auto;
+  object-fit: contain;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.logo_sub {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 8.96px;
+  line-height: 11px;
+  text-align: center;
+  letter-spacing: 1.5em;
+  padding: 13px 0 0 6px;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.coverImage {
+  height: calc(100vh - 303px);
+  min-height: 350px;
+  max-height: 600px;
+  background: url('/images/Ekaterina.png') top center no-repeat;
+  background-size: cover;
+}
+
+.titleContainer {
+  display: block;
+  align-self: flex-end;
+  margin-top: auto;
+  background-color: black;
+  padding: 31px 0;
 }
 
 .title {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 47px;
+  line-height: 47px;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
   margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+  padding: 0;
 }
 
-.title,
-.description {
+.subTitle {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: white;
+  padding: 5px 0 0;
+  margin: 0;
+}
+
+.section_schedule {
+  padding: 37px 10px 44px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.day__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.day__title {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 31px;
   text-align: center;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
+.day__event {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+  flex-direction: column;
+  gap: 7px;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
+.event__text {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+  padding: 0;
+  font-style: normal;
+  text-align: center;
+  font-size: 16px;
+  line-height: 19px;
 }
 
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.event__time {
+  font-weight: 300;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.event__title {
+  font-weight: 500;
 }
 
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
+.event__level {
+  font-weight: 200;
+}
+
+.event__price {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px 0 0;
+}
+
+.price__content {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  color: #000;
+}
+
+.price__value {
+  font-weight: 600;
 }

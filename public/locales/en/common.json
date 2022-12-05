@@ -1,3 +1,21 @@
 {
-  "h1": "This is header"
+  "h1": "Ekaterina Oleynikova",
+  "h2": "Intensive dance weekend in Warsaw",
+  "priceDate": "01.12.2022",
+  "until": "until",
+  "after": "after",
+  "wsPrice1": "100zł",
+  "wsPrice2": "130zł",
+  "indiv": "Individual lessons",
+  "indivPrice": "250zł / 1h",
+  "ws1": {
+    "time": "13:00-15:00",
+    "title": "Technique and combos",
+    "level": "open level"
+  },
+  "ws2": {
+    "time": "15:30-17:30",
+    "title": "Pop song choreography",
+    "level": "intermediate / advanced level"
+  }
 }
