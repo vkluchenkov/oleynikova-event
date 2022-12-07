@@ -27,3 +27,14 @@
 .langItem_current:hover {
   opacity: 1;
 }
+
+@media screen and (min-width: 1280px) {
+  .container {
+    gap: 15px;
+  }
+
+  .langItem {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+}

@@ -5,34 +5,21 @@ import { useTranslation } from 'react-i18next';
 import styles from './styles.module.css';
 
 export const LangSwitcher: React.FC = () => {
+  const { container, langItem, langItem_current } = styles;
   const { i18n } = useTranslation();
+  const langs = ['en', 'pl', 'ru'];
   const currentLang = i18n.language;
 
-  return (
-    <>
-      <div className={styles.container}>
-        <Link
-          href='/'
-          className={clsx(styles.langItem, currentLang === 'pl' && styles.langItem_current)}
-          locale='pl'
-        >
-          PL
-        </Link>
-        <Link
-          href='/'
-          className={clsx(styles.langItem, currentLang === 'en' && styles.langItem_current)}
-          locale='en'
-        >
-          EN
-        </Link>
-        <Link
-          href='/'
-          className={clsx(styles.langItem, currentLang === 'ru' && styles.langItem_current)}
-          locale='ru'
-        >
-          РУС
-        </Link>
-      </div>
-    </>
-  );
+  const switcher = langs.map((lang) => (
+    <Link
+      key={lang}
+      href='/'
+      className={clsx(langItem, currentLang === lang && langItem_current)}
+      locale={lang}
+    >
+      {lang === 'ru' ? 'РУС' : lang.toUpperCase()}
+    </Link>
+  ));
+
+  return <div className={container}>{switcher}</div>;
 };
