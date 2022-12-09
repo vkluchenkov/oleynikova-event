@@ -3,39 +3,40 @@ import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RadioInput } from '../../ui-kit/RadioInput';
 import { TextInput } from '../../ui-kit/TextInput';
-import { indivPrice } from '../../utils/constants';
+import {
+  defaultFields,
+  indivMaxHours,
+  indivMinHours,
+  indivPrice,
+  processingFee,
+} from '../../utils/constants';
 import { getWsPrice } from '../../utils/helpers';
 import styles from './styles.module.css';
+import { FormPopupProps, Workshops, FormFields } from '../../types';
+import axios from 'axios';
 
-interface FormPopupProps {
-  onClose: () => void;
-}
-
-type Workshops = 'ws1' | 'ws2' | 'indiv';
-type Payment = 'bacs' | 'paypal' | 'stripe' | undefined;
-
-interface FormFields {
-  name: string;
-  email: string;
-  ws1: boolean;
-  ws2: boolean;
-  indiv: boolean;
-  indivHours: number;
-  payment: Payment;
-}
+const {
+  form,
+  title,
+  subtitle,
+  wsWrapper,
+  inputWrapper,
+  inputWrapperNumber,
+  input__hours,
+  filter,
+  filter__switch,
+  filter__switch_selected,
+  label,
+  radioWrapper,
+  total,
+  button,
+  counter__wrapper,
+} = styles;
 
 export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
   const { t } = useTranslation();
 
-  const [formFields, setFormFields] = useState<FormFields>({
-    name: '',
-    email: '',
-    ws1: false,
-    ws2: false,
-    indiv: false,
-    indivHours: 1,
-    payment: undefined,
-  });
+  const [formFields, setFormFields] = useState<FormFields>(defaultFields);
   const [formFieldsErrors, setFormFieldsErrors] = useState<Partial<FormFields>>({});
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
@@ -61,33 +62,57 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
     const errMessage = target.validationMessage;
 
     setFormFieldsErrors((prev) => ({ ...prev, [name]: errMessage }));
-    setFormFields((prev) => {
-      // Limit number field value to integers only
-      if (name === 'individual') {
-        const integersOnly = Math.round(value as unknown as number);
-        return { ...prev, [name]: integersOnly };
-      } else return { ...prev, [name]: value };
-    });
+    setFormFields((prev) => ({ ...prev, [name]: value }));
     setIsBtnDisabled(!form!.checkValidity());
   }, []);
 
-  const handleSwitch = (ws: Workshops) =>
+  const handleNumber = (action: 'plus' | 'minus') => {
+    if (
+      formFields.indivHours >= indivMinHours &&
+      formFields.indivHours < indivMaxHours &&
+      action === 'plus'
+    )
+      setFormFields((prev) => ({ ...prev, ['indivHours']: prev.indivHours + 1 }));
+
+    if (
+      formFields.indivHours > indivMinHours &&
+      formFields.indivHours <= indivMaxHours &&
+      action === 'minus'
+    )
+      setFormFields((prev) => ({ ...prev, ['indivHours']: prev.indivHours - 1 }));
+  };
+
+  const handleSwitch = (ws: Workshops) => {
     setFormFields((prev) => {
       const value = !prev[ws];
       return { ...prev, [ws]: value };
     });
+  };
 
   const getTotal = useCallback(() => {
     const ws1Price = formFields.ws1 ? getWsPrice() : 0;
     const ws2Price = formFields.ws2 ? getWsPrice() : 0;
     const indivTotal = formFields.indiv ? indivPrice * formFields.indivHours : 0;
-    return ws1Price + ws2Price + indivTotal;
+    const fee = formFields.payment != 'bacs' && formFields.payment != undefined ? processingFee : 1;
+    return (ws1Price + ws2Price + indivTotal) * fee;
   }, [formFields]);
 
+  const handleSubmit = async () => {
+    const payload = {
+      ...formFields,
+      total: getTotal(),
+    };
+    try {
+      await axios.post('/api/submit', payload).then((data) => console.log(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <form id='registration__form' noValidate className={styles.form} onClick={handleClickClose}>
-      <h2 className={styles.title}>{t('form.title')}</h2>
-      <div className={styles.inputWrapper}>
+    <form id='registration__form' noValidate className={form} onClick={handleClickClose}>
+      <h2 className={title}>{t('form.title')}</h2>
+      <div className={inputWrapper}>
         <TextInput
           required
           min={3}
@@ -100,7 +125,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
         />
       </div>
 
-      <div className={styles.inputWrapper}>
+      <div className={inputWrapper}>
         <TextInput
           required
           type='email'
@@ -112,69 +137,64 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
         />
       </div>
 
-      <div className={styles.wsWrapper}>
-        <h3 className={styles.subtitle}>{t('form.wstitle')}</h3>
-        <div className={styles.filter}>
+      <div className={wsWrapper}>
+        <h3 className={subtitle}>{t('form.wstitle')}</h3>
+        <div className={filter}>
           <span
-            className={clsx(
-              styles.filter__switch,
-              formFields.ws1 && styles.filter__switch_selected
-            )}
+            className={clsx(filter__switch, formFields.ws1 && filter__switch_selected)}
             onClick={() => handleSwitch('ws1')}
           />
-          <p className={styles.label}>{t('ws1.title') + ': ' + getWsPrice() + 'zł'}</p>
+          <p className={label}>{t('ws1.title') + ': ' + getWsPrice() + 'zł'}</p>
         </div>
 
-        <div className={styles.filter}>
+        <div className={filter}>
           <span
-            className={clsx(
-              styles.filter__switch,
-              formFields.ws2 && styles.filter__switch_selected
-            )}
+            className={clsx(filter__switch, formFields.ws2 && filter__switch_selected)}
             onClick={() => handleSwitch('ws2')}
           />
-          <p className={styles.label}>{t('ws2.title') + ': ' + getWsPrice() + 'zł'}</p>
+          <p className={label}>{t('ws2.title') + ': ' + getWsPrice() + 'zł'}</p>
         </div>
 
-        <div className={styles.filter}>
+        <div className={filter}>
           <span
-            className={clsx(
-              styles.filter__switch,
-              formFields.indiv && styles.filter__switch_selected
-            )}
+            className={clsx(filter__switch, formFields.indiv && filter__switch_selected)}
             onClick={() => handleSwitch('indiv')}
           />
-          <p className={styles.label}>
-            {t('indiv') + ': ' + indivPrice + 'zł' + ' / ' + t('indivPrice')}
-          </p>
+          <p className={label}>{t('indiv') + ': ' + indivPrice + 'zł' + ' / ' + t('indivPrice')}</p>
         </div>
 
         {formFields.indiv && (
-          <div className={clsx(styles.inputWrapper, styles.inputWrapperNumber)}>
-            <label htmlFor='indivHours' className={styles.label}>
-              {t('form.indivHours')}
-            </label>
-            <TextInput
-              className={styles.input__hours}
-              min={1}
-              type='number'
-              name='indivHours'
-              value={formFields.indivHours}
-              onChange={handleInputChange}
-              error={formFieldsErrors.indivHours?.toString()}
-            />
+          <div className={clsx(inputWrapper, inputWrapperNumber)}>
+            <span className={label}>{t('form.indivHours')}</span>
+            <div className={counter__wrapper}>
+              <button
+                type='button'
+                className={styles.counter__button}
+                onClick={() => handleNumber('minus')}
+              >
+                –
+              </button>
+              <span className={styles.counter__value}>{formFields.indivHours}</span>
+              <button
+                type='button'
+                className={styles.counter__button}
+                onClick={() => handleNumber('plus')}
+              >
+                +
+              </button>
+            </div>
           </div>
         )}
       </div>
 
       {getTotal() > 0 ? (
-        <span className={styles.total}>{t('form.total').toUpperCase() + ': ' + getTotal()}zł</span>
+        <span className={total}>{t('form.total').toUpperCase() + ': ' + getTotal()}zł</span>
       ) : (
         <></>
       )}
 
-      <fieldset className={styles.radioWrapper}>
-        <h3 className={styles.subtitle}>{t('form.paymenttitle')}</h3>
+      <fieldset className={radioWrapper}>
+        <h3 className={subtitle}>{t('form.paymenttitle')}</h3>
         <RadioInput
           label={t('form.bacs')}
           id='bacs'
@@ -203,7 +223,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
           onChange={handleInputChange}
         />
       </fieldset>
-      <button type='button' className={styles.button} disabled={isBtnDisabled}>
+      <button type='button' className={button} disabled={isBtnDisabled} onClick={handleSubmit}>
         Submit
       </button>
     </form>

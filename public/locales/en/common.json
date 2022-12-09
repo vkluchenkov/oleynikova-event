@@ -4,8 +4,6 @@
   "priceDate": "01.01.2023",
   "until": "until",
   "after": "after",
-  "wsPrice1": "100zł",
-  "wsPrice2": "130zł",
   "indiv": "Individual lessons",
   "indivPrice": "1h",
   "ws1": {
@@ -30,6 +28,9 @@
     "bacs": "Bank transfer",
     "paypal": "PayPal (processing fee 5%, min €1)",
     "stripe": "Stripe (cards, Apply Pay, Google Pay and more. Processing fee 5%, min €1)",
-    "total": "Total"
+    "total": "Total",
+    "button_bacs": "Submit",
+    "button_stripe1": "Pay ",
+    "button_stripe2": "now"
   }
 }

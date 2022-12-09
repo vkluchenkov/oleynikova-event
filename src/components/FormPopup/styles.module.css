@@ -57,10 +57,41 @@
   gap: 15px;
 }
 
-.input__hours {
-  order: -1;
-  max-width: 80px;
-  text-align: center;
+.counter__wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.counter__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  background: none;
+  outline: 1px solid #ccc;
+  border: none;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0;
+  margin: 0;
+}
+
+.counter__button:hover {
+  opacity: 0.7;
+}
+
+.counter__value {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .filter {

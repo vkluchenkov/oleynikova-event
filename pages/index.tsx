@@ -16,7 +16,6 @@ const Home: NextPage = () => {
   const { pageContainer, main, coverContainer, contentContainer, title, subTitle } = styles;
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
 
