@@ -8,28 +8,38 @@ import { Schedule } from '../src/components/Schedule';
 import { Signup } from '../src/components/Signup';
 import { Footer } from '../src/components/Footer';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { FormPopup } from '../src/components/FormPopup';
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
+  const { pageContainer, main, coverContainer, contentContainer, title, subTitle } = styles;
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
+
   return (
-    <div className={styles.pageContainer}>
+    <div className={pageContainer}>
       <Head>
         <title>Intensive dance weekend with Ekaterina Oleynikova in Warsaw</title>
       </Head>
       <Header />
-      <main className={styles.main}>
-        <div className={styles.coverContainer}>
+      <main className={main}>
+        <div className={coverContainer}>
           <Cover />
         </div>
 
-        <div className={styles.contentContainer}>
+        <div className={contentContainer}>
           <div>
-            <h1 className={styles.title}>{t('h1')}</h1>
-            <h2 className={styles.subTitle}>{t('h2')}</h2>
+            <h1 className={title}>{t('h1')}</h1>
+            <h2 className={subTitle}>{t('h2')}</h2>
           </div>
           <Schedule />
-          <Signup />
+          <Signup onClick={openPopup} />
           <Footer />
+          {isPopupOpen ? <FormPopup onClose={closePopup} /> : <></>}
         </div>
       </main>
     </div>

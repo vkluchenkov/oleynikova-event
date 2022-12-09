@@ -1,13 +1,13 @@
 {
   "h1": "Ekaterina Oleynikova",
   "h2": "Intensive dance weekend in Warsaw",
-  "priceDate": "01.12.2022",
+  "priceDate": "01.01.2023",
   "until": "until",
   "after": "after",
   "wsPrice1": "100zł",
   "wsPrice2": "130zł",
   "indiv": "Individual lessons",
-  "indivPrice": "250zł / 1h",
+  "indivPrice": "1h",
   "ws1": {
     "time": "13:00-15:00",
     "title": "Technique and combos",
@@ -19,5 +19,17 @@
     "level": "intermediate / advanced level"
   },
   "button": "Sign up",
-  "address": "Address"
+  "address": "Address",
+  "form": {
+    "title": "Registration",
+    "wstitle": "Workshops selection",
+    "name": "Name",
+    "email": "Email",
+    "indivHours": "How many hours?",
+    "paymenttitle": "Payment method",
+    "bacs": "Bank transfer",
+    "paypal": "PayPal (processing fee 5%, min €1)",
+    "stripe": "Stripe (cards, Apply Pay, Google Pay and more. Processing fee 5%, min €1)",
+    "total": "Total"
+  }
 }

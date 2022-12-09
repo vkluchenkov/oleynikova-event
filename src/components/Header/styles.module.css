@@ -55,4 +55,25 @@
     width: 100%;
     max-width: 300px;
   }
+
+  .logo_sub {
+    padding: 18px 0 15px 15px;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .header {
+    padding: 20px 0 0;
+  }
+
+  .logoGroupWrapper {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .logo_sub {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 18px 0 15px 20px;
+  }
 }

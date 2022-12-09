@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { indivPrice, price1, price2 } from '../../utils/constants';
 import styles from './styles.module.css';
 
 export const Schedule: React.FC = () => {
@@ -32,12 +33,10 @@ export const Schedule: React.FC = () => {
             <p className={clsx(event__text, event__level)}>({t('ws1.level')})</p>
             <div className={event__price}>
               <p className={price__content}>
-                {t('until')} {t('priceDate')} –
-                <span className={price__value}> {t('wsPrice1')}</span>
+                {t('until')} {t('priceDate')} –<span className={price__value}> {price1}zł</span>
               </p>
               <p className={price__content}>
-                {t('after')} {t('priceDate')} –
-                <span className={price__value}> {t('wsPrice2')}</span>
+                {t('after')} {t('priceDate')} –<span className={price__value}> {price2}zł</span>
               </p>
             </div>
           </div>
@@ -48,12 +47,10 @@ export const Schedule: React.FC = () => {
             <p className={clsx(event__text, event__level)}>({t('ws2.level')})</p>
             <div className={event__price}>
               <p className={price__content}>
-                {t('until')} {t('priceDate')} –
-                <span className={price__value}> {t('wsPrice1')}</span>
+                {t('until')} {t('priceDate')} –<span className={price__value}> {price1}zł</span>
               </p>
               <p className={price__content}>
-                {t('after')} {t('priceDate')} –
-                <span className={price__value}> {t('wsPrice2')}</span>
+                {t('after')} {t('priceDate')} –<span className={price__value}> {price2}zł</span>
               </p>
             </div>
           </div>
@@ -67,7 +64,7 @@ export const Schedule: React.FC = () => {
             <p className={clsx(event__text, event__title_indiv)}>{t('indiv')}</p>
             <div className={event__price}>
               <p className={price__content}>
-                <span className={price__value}> {t('indivPrice')}</span>
+                <span className={price__value}> {indivPrice + ' / ' + t('indivPrice')}</span>
               </p>
             </div>
           </div>
