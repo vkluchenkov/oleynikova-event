@@ -34,6 +34,7 @@ const {
   counter__wrapper,
   form__error,
   form__success,
+  form__closeBtn,
 } = styles;
 
 export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
@@ -128,6 +129,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
     <>
       {isLoader && <Loader />}
       <form id='registration__form' noValidate className={form} onClick={handleClickClose}>
+        <button type='button' className={form__closeBtn} onClick={onClose} />
         <h2 className={title}>{t('form.title')}</h2>
         <div className={inputWrapper}>
           <TextInput

@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  padding: 25px 20px 0;
+  padding: 50px 20px 0;
   z-index: 1;
 }
 
@@ -222,6 +222,18 @@
   color: #00cc00;
   margin: 0;
   padding: 0;
+}
+
+.form__closeBtn {
+  background: url(/images/icon-close.svg) center no-repeat;
+  width: 44px;
+  height: 44px;
+  position: fixed;
+  top: 13px;
+  right: 12px;
+  cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 @media screen and (min-width: 1024px) {
