@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 import { Inter } from '@next/font/google';
 
-const inter = Inter({ subsets: ['latin-ext', 'cyrillic-ext'] });
+const inter = Inter({ subsets: ['cyrillic', 'latin'] });
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

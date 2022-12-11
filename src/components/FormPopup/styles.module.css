@@ -77,6 +77,7 @@
   font-weight: 300;
   font-size: 20px;
   line-height: 16px;
+  color: black;
   cursor: pointer;
   transition: all 0.3s;
   padding: 0;
@@ -84,7 +85,8 @@
 }
 
 .counter__button:hover {
-  opacity: 0.7;
+  background-color: black;
+  color: white;
 }
 
 .counter__value {
@@ -198,6 +200,28 @@
   color: #999;
   outline: 1px solid #ccc;
   cursor: not-allowed;
+}
+
+.form__error {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: red;
+  margin: 0;
+  padding: 0;
+}
+
+.form__success {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #00cc00;
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (min-width: 1024px) {

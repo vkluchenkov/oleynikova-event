@@ -1,19 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { OrderPayload } from '../../src/types';
 import { Client } from '@notionhq/client';
-import { indivPrice } from '../../src/utils/constants';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
-  });
+  const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const orderPayload: OrderPayload = req.body;
 
   const workshops: Array<{ name: string }> = [];
-  orderPayload.ws1 && workshops.push({ name: 'Technique' });
-  orderPayload.ws2 && workshops.push({ name: 'Choreo' });
+  orderPayload.technique && workshops.push({ name: 'Technique' });
+  orderPayload.choreo && workshops.push({ name: 'Choreo' });
 
   try {
     await notion.pages.create({
@@ -46,6 +42,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         Total: {
           type: 'number',
           number: orderPayload.total,
+        },
+        Payment: {
+          type: 'select',
+          select: { name: orderPayload.payment ? orderPayload.payment : '' },
         },
       },
     });

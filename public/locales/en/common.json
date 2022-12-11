@@ -31,6 +31,8 @@
     "total": "Total",
     "button_bacs": "Submit",
     "button_stripe1": "Pay ",
-    "button_stripe2": "now"
+    "button_stripe2": "now",
+    "oops": "Something went wrong, we are working on it. Please try again later",
+    "success": "Thank you! Your registration submitted successfully."
   }
 }

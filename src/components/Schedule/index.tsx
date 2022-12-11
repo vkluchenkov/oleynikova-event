@@ -33,10 +33,10 @@ export const Schedule: React.FC = () => {
             <p className={clsx(event__text, event__level)}>({t('ws1.level')})</p>
             <div className={event__price}>
               <p className={price__content}>
-                {t('until')} {t('priceDate')} –<span className={price__value}> {price1}zł</span>
+                {t('until')} {t('priceDate')} –<span className={price__value}> {price1}PLN</span>
               </p>
               <p className={price__content}>
-                {t('after')} {t('priceDate')} –<span className={price__value}> {price2}zł</span>
+                {t('after')} {t('priceDate')} –<span className={price__value}> {price2}PLN</span>
               </p>
             </div>
           </div>
@@ -47,10 +47,10 @@ export const Schedule: React.FC = () => {
             <p className={clsx(event__text, event__level)}>({t('ws2.level')})</p>
             <div className={event__price}>
               <p className={price__content}>
-                {t('until')} {t('priceDate')} –<span className={price__value}> {price1}zł</span>
+                {t('until')} {t('priceDate')} –<span className={price__value}> {price1}PLN</span>
               </p>
               <p className={price__content}>
-                {t('after')} {t('priceDate')} –<span className={price__value}> {price2}zł</span>
+                {t('after')} {t('priceDate')} –<span className={price__value}> {price2}PLN</span>
               </p>
             </div>
           </div>
@@ -64,7 +64,7 @@ export const Schedule: React.FC = () => {
             <p className={clsx(event__text, event__title_indiv)}>{t('indiv')}</p>
             <div className={event__price}>
               <p className={price__content}>
-                <span className={price__value}> {indivPrice + ' / ' + t('indivPrice')}</span>
+                <span className={price__value}> {indivPrice + 'PLN / ' + t('indivPrice')}</span>
               </p>
             </div>
           </div>
