@@ -18,23 +18,22 @@ import { Loader } from '../Loader';
 
 const {
   form,
-  title,
-  subtitle,
-  wsWrapper,
-  inputWrapper,
-  inputWrapperNumber,
-  input__hours,
-  filter,
-  filter__switch,
-  filter__switch_selected,
-  label,
-  radioWrapper,
-  total,
-  button,
-  counter__wrapper,
+  form__title,
+  form__subtitle,
+  form__wsWrapper,
+  form__total,
+  form__submitButton,
   form__error,
   form__success,
   form__closeBtn,
+  input__wrapper,
+  input__wrapper_number,
+  input__label,
+  checkbox,
+  checkbox__switch,
+  checkbox__switch_selected,
+  radioWrapper,
+  counter__wrapper,
 } = styles;
 
 export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
@@ -130,8 +129,8 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
       {isLoader && <Loader />}
       <form id='registration__form' noValidate className={form} onClick={handleClickClose}>
         <button type='button' className={form__closeBtn} onClick={onClose} />
-        <h2 className={title}>{t('form.title')}</h2>
-        <div className={inputWrapper}>
+        <h2 className={form__title}>{t('form.title')}</h2>
+        <div className={input__wrapper}>
           <TextInput
             required
             min={3}
@@ -144,7 +143,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
           />
         </div>
 
-        <div className={inputWrapper}>
+        <div className={input__wrapper}>
           <TextInput
             required
             type='email'
@@ -156,37 +155,37 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
           />
         </div>
 
-        <div className={wsWrapper}>
-          <h3 className={subtitle}>{t('form.wstitle')}</h3>
-          <div className={filter}>
+        <div className={form__wsWrapper}>
+          <h3 className={form__subtitle}>{t('form.wstitle')}</h3>
+          <div className={checkbox}>
             <span
-              className={clsx(filter__switch, formFields.technique && filter__switch_selected)}
+              className={clsx(checkbox__switch, formFields.technique && checkbox__switch_selected)}
               onClick={() => handleSwitch('technique')}
             />
-            <p className={label}>{t('ws1.title') + ': ' + getWsPrice() + 'PLN'}</p>
+            <p className={input__label}>{t('ws1.title') + ': ' + getWsPrice() + 'PLN'}</p>
           </div>
 
-          <div className={filter}>
+          <div className={checkbox}>
             <span
-              className={clsx(filter__switch, formFields.choreo && filter__switch_selected)}
+              className={clsx(checkbox__switch, formFields.choreo && checkbox__switch_selected)}
               onClick={() => handleSwitch('choreo')}
             />
-            <p className={label}>{t('ws2.title') + ': ' + getWsPrice() + 'PLN'}</p>
+            <p className={input__label}>{t('ws2.title') + ': ' + getWsPrice() + 'PLN'}</p>
           </div>
 
-          <div className={filter}>
+          <div className={checkbox}>
             <span
-              className={clsx(filter__switch, formFields.indiv && filter__switch_selected)}
+              className={clsx(checkbox__switch, formFields.indiv && checkbox__switch_selected)}
               onClick={() => handleSwitch('indiv')}
             />
-            <p className={label}>
+            <p className={input__label}>
               {t('indiv') + ': ' + indivPrice + 'PLN' + ' / ' + t('indivPrice')}
             </p>
           </div>
 
           {formFields.indiv && (
-            <div className={clsx(inputWrapper, inputWrapperNumber)}>
-              <span className={label}>{t('form.indivHours')}</span>
+            <div className={clsx(input__wrapper, input__wrapper_number)}>
+              <span className={input__label}>{t('form.indivHours')}</span>
               <div className={counter__wrapper}>
                 <button
                   type='button'
@@ -209,13 +208,13 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
         </div>
 
         {getTotal() > 0 ? (
-          <span className={total}>{t('form.total').toUpperCase() + ': ' + getTotal()}zł</span>
+          <span className={form__total}>{t('form.total').toUpperCase() + ': ' + getTotal()}zł</span>
         ) : (
           <></>
         )}
 
         <fieldset className={radioWrapper}>
-          <h3 className={subtitle}>{t('form.paymenttitle')}</h3>
+          <h3 className={form__subtitle}>{t('form.paymenttitle')}</h3>
           <RadioInput
             label={t('form.bacs')}
             id='Bank'
@@ -244,7 +243,12 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
             onChange={handleInputChange}
           />
         </fieldset>
-        <button type='button' className={button} disabled={isBtnDisabled} onClick={handleSubmit}>
+        <button
+          type='button'
+          className={form__submitButton}
+          disabled={isBtnDisabled}
+          onClick={handleSubmit}
+        >
           Submit
         </button>
         {submitError && <span className={form__error}>{t('form.oops')}</span>}

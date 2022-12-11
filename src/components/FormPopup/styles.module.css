@@ -13,7 +13,7 @@
   z-index: 1;
 }
 
-.title {
+.form__title {
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -23,7 +23,7 @@
   text-transform: uppercase;
 }
 
-.subtitle {
+.form__subtitle {
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -32,7 +32,7 @@
   margin: 0;
 }
 
-.wsWrapper {
+.form__wsWrapper {
   width: 100%;
   max-width: 550px;
   display: flex;
@@ -40,7 +40,88 @@
   gap: 12px;
 }
 
-.inputWrapper {
+.form__total {
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  border-top: 1px solid rgb(59, 59, 59);
+  border-bottom: 1px solid rgb(59, 59, 59);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  padding: 7px 0;
+}
+
+.form__submitButton {
+  width: 100%;
+  max-width: 550px;
+  margin: 15px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: 1px solid black;
+  background-color: white;
+  padding: 10px 15px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 22px;
+  text-transform: uppercase;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.form__submitButton:hover {
+  background-color: #000;
+  color: white;
+}
+
+.form__submitButton:disabled {
+  background-color: #eee;
+  color: #999;
+  outline: 1px solid #ccc;
+  cursor: not-allowed;
+}
+
+.form__error {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: red;
+  margin: 0;
+  padding: 0;
+}
+
+.form__success {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #00cc00;
+  margin: 0;
+  padding: 0;
+}
+
+.form__closeBtn {
+  background: url(/images/icon-close.svg) center no-repeat;
+  width: 44px;
+  height: 44px;
+  position: fixed;
+  top: 13px;
+  right: 12px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.input__wrapper {
   width: 100%;
   max-width: 550px;
   display: flex;
@@ -48,13 +129,23 @@
   gap: 5px;
 }
 
-.inputWrapperNumber {
+.input__wrapper_number {
   width: 100%;
   max-width: 550px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 15px;
+}
+
+.input__label {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
 }
 
 .counter__wrapper {
@@ -96,7 +187,7 @@
   line-height: 22px;
 }
 
-.filter {
+.checkbox {
   display: flex;
   gap: 13px;
   align-items: center;
@@ -105,7 +196,7 @@
   align-self: flex-start;
 }
 
-.filter__switch {
+.checkbox__switch {
   width: 43px;
   height: 24px;
   margin: 0;
@@ -118,11 +209,11 @@
   cursor: pointer;
 }
 
-.filter__switch_selected {
+.checkbox__switch_selected {
   justify-content: flex-end;
 }
 
-.filter__switch::after {
+.checkbox__switch::after {
   content: '';
   width: 16px;
   height: 16px;
@@ -131,18 +222,8 @@
   transition: all 0.5s;
 }
 
-.filter__switch_selected::after {
+.checkbox__switch_selected::after {
   background-color: black;
-}
-
-.label {
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 16px;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
 }
 
 .radioWrapper {
@@ -153,87 +234,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.total {
-  display: block;
-  width: 100%;
-  max-width: 550px;
-  border-top: 1px solid rgb(59, 59, 59);
-  border-bottom: 1px solid rgb(59, 59, 59);
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
-  padding: 7px 0;
-}
-
-.button {
-  width: 100%;
-  max-width: 550px;
-  margin: 15px auto 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  outline: 1px solid black;
-  background-color: white;
-  padding: 10px 15px;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 22px;
-  text-transform: uppercase;
-  color: black;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.button:hover {
-  background-color: #000;
-  color: white;
-}
-
-.button:disabled {
-  background-color: #eee;
-  color: #999;
-  outline: 1px solid #ccc;
-  cursor: not-allowed;
-}
-
-.form__error {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: center;
-  color: red;
-  margin: 0;
-  padding: 0;
-}
-
-.form__success {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: center;
-  color: #00cc00;
-  margin: 0;
-  padding: 0;
-}
-
-.form__closeBtn {
-  background: url(/images/icon-close.svg) center no-repeat;
-  width: 44px;
-  height: 44px;
-  position: fixed;
-  top: 13px;
-  right: 12px;
-  cursor: pointer;
-  border: none;
-  outline: none;
 }
 
 @media screen and (min-width: 1024px) {
