@@ -1,4 +1,4 @@
-import { changeDate, price1, price2 } from './constants';
+import { changeDate, price1, price2 } from '../utils/constants';
 
 export const getWsPrice = () => {
   const today = new Date();

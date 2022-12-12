@@ -1,17 +1,65 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { OrderPayload } from '../../src/types';
 import { Client } from '@notionhq/client';
+import i18next from 'i18next';
+const Backend = require('i18next-fs-backend');
+import { join } from 'path';
+import { sendMail } from '../../src/helpers/sendMail';
+import { getAdminEmailContent } from '../../src/helpers/getAdminMailContent';
+import { getUserMailContent } from '../../src/helpers/getUserMailContent';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const notion = new Client({ auth: process.env.NOTION_TOKEN });
-
   const orderPayload: OrderPayload = req.body;
+
+  await i18next.use(Backend).init({
+    ns: ['common'],
+    lng: orderPayload.lng,
+    fallbackLng: 'en',
+    backend: {
+      loadPath: join(__dirname, '../../../../public/locales/{{lng}}/{{ns}}.json'),
+    },
+  });
+
+  const { t } = i18next;
+
+  const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const workshops: Array<{ name: string }> = [];
   orderPayload.technique && workshops.push({ name: 'Technique' });
   orderPayload.choreo && workshops.push({ name: 'Choreo' });
 
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const senderEmail = process.env.SENDER_EMAIL;
+  const senderName = process.env.SENDER_NAME;
+  const adminMailContent = getAdminEmailContent(orderPayload);
+  const userMailContent = getUserMailContent({
+    orderPayload,
+    h1: t('email.h1'),
+    h2: t('email.h2'),
+    order: t('email.order'),
+    bankTitle: t('email.bank_title'),
+    bankOther: t('email.bank_other'),
+    totalTitle: t('form.total'),
+    ws1Title: t('ws1.title'),
+    ws2Title: t('ws2.title'),
+    indivTitle: t('indiv'),
+    paymentTitle: t('form.paymenttitle'),
+    hour: t('hour'),
+  });
+
   try {
+    sendMail({
+      adminEmail: adminEmail!,
+      senderEmail: senderEmail!,
+      senderName: senderName!,
+      userEmail: orderPayload.email,
+      userName: orderPayload.name,
+      userSubj: t('email.subject_user'),
+      userContent: userMailContent,
+      adminSubj: 'New registration to Oleynikova intensive',
+      adminContent: adminMailContent,
+    });
+
     await notion.pages.create({
       parent: {
         database_id: process.env.NOTION_DATABASE!,

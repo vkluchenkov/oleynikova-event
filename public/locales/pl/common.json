@@ -5,6 +5,7 @@
   "after": "od",
   "indiv": "Prywatna lekcja",
   "indivPrice": "1 godz",
+  "hour": "godz",
   "ws1": {
     "title": "Technika i combinacji",
     "level": "poziom open – dla wszystkich"

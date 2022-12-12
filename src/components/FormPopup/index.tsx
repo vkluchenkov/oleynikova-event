@@ -10,7 +10,7 @@ import {
   indivPrice,
   processingFee,
 } from '../../utils/constants';
-import { getWsPrice } from '../../utils/helpers';
+import { getWsPrice } from '../../helpers/getWsPrice';
 import styles from './styles.module.css';
 import { FormPopupProps, Workshops, FormFields } from '../../types';
 import axios from 'axios';
@@ -37,7 +37,8 @@ const {
 } = styles;
 
 export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
 
   const [formFields, setFormFields] = useState<FormFields>(defaultFields);
   const [formFieldsErrors, setFormFieldsErrors] = useState<Partial<FormFields>>({});
@@ -109,9 +110,12 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
     const payload = {
       ...formFields,
       total: getTotal(),
+      lng: currentLang,
     };
     try {
+      setIsBtnDisabled(true);
       await axios.post('/api/submit', payload).then((res) => {
+        console.log(res.data);
         setSuccess(true);
         setTimeout(() => {
           onClose();
@@ -119,6 +123,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
       });
     } catch (error) {
       setSubmitError(true);
+      setIsBtnDisabled(false);
     } finally {
       setIsLoader(false);
     }

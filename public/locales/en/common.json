@@ -6,6 +6,7 @@
   "after": "after",
   "indiv": "Individual lessons",
   "indivPrice": "1h",
+  "hour": "h",
   "ws1": {
     "time": "13:00-15:00",
     "title": "Technique and combos",
@@ -34,5 +35,13 @@
     "button_stripe2": "now",
     "oops": "Something went wrong, we are working on it. Please try again later",
     "success": "Thank you! Your registration submitted successfully."
+  },
+  "email": {
+    "subject_user": "Thank you for your registration",
+    "h1": "Thank you for your registration!",
+    "h2": "We received your registration to Intensive dance weekend with Ekaterina Oleynikova.",
+    "order": "And here's what you ordered:",
+    "bank_title": "Account:",
+    "bank_other": "Alla Kluchenkova\nSantander Bank Polska S.A.\n95 1090 1030 0000 0001 3166 3867\nal. Jana Pawła II 17 00-854 Warsaw"
   }
 }

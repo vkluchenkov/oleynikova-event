@@ -17,4 +17,5 @@ export interface FormFields {
 
 export interface OrderPayload extends FormFields {
   total: number;
+  lng: string;
 }
