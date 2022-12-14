@@ -22,6 +22,7 @@
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "i18next": "^22.0.7",
+    "mjml": "^4.13.0",
     "next": "13.0.6",
     "next-i18next": "^13.0.0",
     "react": "18.2.0",
@@ -30,5 +31,8 @@
     "sib-api-v3-sdk": "^8.4.2",
     "stripe": "^11.3.0",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@types/mjml": "^4.7.0"
   }
 }

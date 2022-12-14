@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const adminMailContent = getAdminEmailContent(orderPayload);
   const userMailContent = getUserMailContent({
     orderPayload,
-    h1: t('email.h1'),
+    hi: t('email.hi'),
     h2: t('email.h2'),
     order: t('email.order'),
     bankTitle: t('email.bank_title'),

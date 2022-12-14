@@ -37,7 +37,7 @@
   },
   "email": {
     "subject_user": "Thank you for your registration",
-    "h1": "Thank you for your registration!",
+    "hi": "Hi",
     "h2": "We received your registration to Intensive dance weekend with Ekaterina Oleynikova.",
     "order": "And here's what you ordered:",
     "bank_title": "Payment account:",
