@@ -16,6 +16,10 @@ export interface FormFields {
 }
 
 export interface OrderPayload extends FormFields {
-  total: number;
+  total: {
+    total: number;
+    fee: number;
+    grandTotal: number;
+  };
   lng: string;
 }

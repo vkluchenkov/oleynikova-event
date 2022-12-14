@@ -12,7 +12,8 @@ export const getAdminEmailContent = (orderPayload: OrderPayload) => {
 ${technique ? '<p>- Technique</p>' : ''}
 ${choreo ? '<p>- Choreography</p>' : ''}
 ${indiv ? '- Individiual classes: ' + indivHours + 'h' : ''}
-<p><b>Total: ${total}PLN</b></p>
+<p><b>Total: ${total.grandTotal}PLN</b></p>
+<p>Fee: ${total.fee}PLN</p>
 <p>Payment method: ${payment}</p>
 </body>
 </html>`;

@@ -30,9 +30,8 @@
     "paypal": "PayPal (processing fee 5%)",
     "stripe": "Stripe (cards and wallets. Processing fee 5%)",
     "total": "Total",
-    "button_bacs": "Submit",
-    "button_stripe1": "Pay ",
-    "button_stripe2": "now",
+    "button": "Submit",
+    "button_stripe": " and pay",
     "oops": "Something went wrong, we are working on it. Please try again later",
     "success": "Thank you! Your registration submitted successfully."
   },

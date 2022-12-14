@@ -96,7 +96,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         Total: {
           type: 'number',
-          number: orderPayload.total,
+          number: orderPayload.total.total,
+        },
+        Fee: {
+          type: 'number',
+          number: orderPayload.total.fee,
+        },
+        GrandTotal: {
+          type: 'number',
+          number: orderPayload.total.grandTotal,
         },
         Payment: {
           type: 'select',

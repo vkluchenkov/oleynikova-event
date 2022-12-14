@@ -61,7 +61,7 @@ export const getUserMailContent = (props: UserMailProps) => {
   ${technique ? `<p>- ${ws1Title}</p>` : ''}
   ${choreo ? `<p>- ${ws2Title}</p>` : ''}
   ${indiv ? '- ' + indivTitle + ' ' + indivHours + hour : ''}
-  <p><b>${totalTitle + ': ' + total}PLN</b></p>
+  <p><b>${totalTitle + ': ' + total.grandTotal}PLN</b></p>
   <p>${paymentTitle + ': ' + paymentMenthod()}</p>
   ${
     payment === 'Bank'

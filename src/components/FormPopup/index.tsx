@@ -18,7 +18,6 @@ import { Loader } from '../Loader';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import { usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useStripe, useElements } from '@stripe/react-stripe-js';
 
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
 const stripePromise = loadStripe(stripeKey);
@@ -62,8 +61,11 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
     const ws1Price = formFields.technique ? getWsPrice() : 0;
     const ws2Price = formFields.choreo ? getWsPrice() : 0;
     const indivTotal = formFields.indiv ? indivPrice * formFields.indivHours : 0;
-    const fee = formFields.payment != 'Bank' && formFields.payment != undefined ? processingFee : 1;
-    return (ws1Price + ws2Price + indivTotal) * fee;
+    const total = ws1Price + ws2Price + indivTotal;
+    const fee =
+      formFields.payment != 'Bank' && formFields.payment != undefined ? total * processingFee : 0;
+    const grandTotal = total + fee;
+    return { total, fee, grandTotal };
   }, [formFields]);
 
   useEffect(() => {
@@ -241,9 +243,9 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
           )}
         </div>
 
-        {getTotal() > 0 ? (
+        {getTotal().grandTotal > 0 ? (
           <span className={form__total}>
-            {t('form.total').toUpperCase() + ': ' + getTotal()}PLN
+            {t('form.total').toUpperCase() + ': ' + getTotal().grandTotal}PLN
           </span>
         ) : (
           <></>
@@ -289,7 +291,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
               return actions.order.create({
                 purchase_units: [
                   {
-                    amount: { value: getTotal().toFixed(2) },
+                    amount: { value: getTotal().grandTotal.toFixed(2) },
                   },
                 ],
                 application_context: {},
@@ -307,7 +309,9 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
             disabled={isBtnDisabled}
             onClick={handleSubmit}
           >
-            Submit
+            {formFields.payment === 'Card'
+              ? t('form.button') + t('form.button_stripe')
+              : t('form.button')}
           </button>
         )}
         {submitError && <span className={form__error}>{t('form.oops')}</span>}

@@ -17,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       product_data: {
         name,
       },
-      unit_amount: total * 100,
+      unit_amount: total.grandTotal * 100,
     },
     quantity: 1,
   };
