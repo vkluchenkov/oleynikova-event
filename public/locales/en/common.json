@@ -41,7 +41,15 @@
     "h1": "Thank you for your registration!",
     "h2": "We received your registration to Intensive dance weekend with Ekaterina Oleynikova.",
     "order": "And here's what you ordered:",
-    "bank_title": "Account:",
-    "bank_other": "Alla Kluchenkova\nSantander Bank Polska S.A.\n95 1090 1030 0000 0001 3166 3867\nal. Jana Pawła II 17 00-854 Warsaw"
+    "bank_title": "Payment account:",
+    "bank_receiver": "Alla Kluchenkova",
+    "bank_name": "Santander Bank Polska S.A.",
+    "bank_account": "95 1090 1030 0000 0001 3166 3867",
+    "bank_address": "al. Jana Pawła II 17, 00-854 Warsaw",
+    "payment_message": "We will contact you additionally, when we confirm your payment and registration."
+  },
+  "thankYou": {
+    "title": "Thank you for your registration",
+    "subtitle": "We will contact you additionally, when we confirm your payment and registration."
   }
 }

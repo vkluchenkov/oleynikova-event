@@ -38,13 +38,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     h2: t('email.h2'),
     order: t('email.order'),
     bankTitle: t('email.bank_title'),
-    bankOther: t('email.bank_other'),
+    bankReceiver: t('email.bank_receiver'),
+    bankName: t('email.bank_name'),
+    bankAccount: t('email.bank_account'),
+    bankAddress: t('email.bank_address'),
     totalTitle: t('form.total'),
     ws1Title: t('ws1.title'),
     ws2Title: t('ws2.title'),
     indivTitle: t('indiv'),
     paymentTitle: t('form.paymenttitle'),
+    paymentBank: t('form.bacs'),
+    paymentStripe: t('form.stripe'),
+    paymentPayPal: t('form.paypal'),
     hour: t('hour'),
+    paymentMessage: t('email.payment_message'),
   });
 
   try {

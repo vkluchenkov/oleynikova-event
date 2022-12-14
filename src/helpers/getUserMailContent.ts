@@ -5,14 +5,21 @@ interface UserMailProps {
   h2: string;
   order: string;
   bankTitle: string;
-  bankOther: string;
+  bankReceiver: string;
+  bankName: string;
+  bankAccount: string;
+  bankAddress: string;
   totalTitle: string;
   ws1Title: string;
   ws2Title: string;
   indivTitle: string;
   paymentTitle: string;
+  paymentBank: string;
+  paymentStripe: string;
+  paymentPayPal: string;
   hour: string;
   orderPayload: OrderPayload;
+  paymentMessage: string;
 }
 
 export const getUserMailContent = (props: UserMailProps) => {
@@ -21,15 +28,29 @@ export const getUserMailContent = (props: UserMailProps) => {
     h2,
     order,
     bankTitle,
-    bankOther,
+    bankReceiver,
+    bankName,
+    bankAccount,
+    bankAddress,
     ws1Title,
     ws2Title,
     indivTitle,
     hour,
     totalTitle,
     paymentTitle,
+    paymentBank,
+    paymentPayPal,
+    paymentStripe,
+    paymentMessage,
   } = props;
   const { technique, choreo, indiv, indivHours, total, payment } = props.orderPayload;
+
+  const paymentMenthod = () => {
+    if (payment === 'Bank') return paymentBank;
+    if (payment === 'Card') return paymentStripe;
+    if (payment === 'PayPal') return paymentPayPal;
+    else return '';
+  };
 
   return `<html>
   <body>
@@ -41,7 +62,18 @@ export const getUserMailContent = (props: UserMailProps) => {
   ${choreo ? `<p>- ${ws2Title}</p>` : ''}
   ${indiv ? '- ' + indivTitle + ' ' + indivHours + hour : ''}
   <p><b>${totalTitle + ': ' + total}PLN</b></p>
-  <p>${paymentTitle + ': ' + payment}</p>
+  <p>${paymentTitle + ': ' + paymentMenthod()}</p>
+  ${
+    payment === 'Bank'
+      ? `<p><b>${bankTitle}</b></p>
+  <p>${bankReceiver}</p>
+  <p>${bankName}</p>
+  <p>${bankAccount}</p>
+  <p>${bankAddress}</p>
+  `
+      : ''
+  }
+<p>${paymentMessage}</p>
   </body>
   </html>`;
 };

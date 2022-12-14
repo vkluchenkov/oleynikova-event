@@ -15,6 +15,13 @@ import styles from './styles.module.css';
 import { FormPopupProps, Workshops, FormFields } from '../../types';
 import axios from 'axios';
 import { Loader } from '../Loader';
+import { PayPalButtons } from '@paypal/react-paypal-js';
+import { usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
+
+const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
+const stripePromise = loadStripe(stripeKey);
 
 const {
   form,
@@ -34,6 +41,7 @@ const {
   checkbox__switch_selected,
   radioWrapper,
   counter__wrapper,
+  paypalBtn,
 } = styles;
 
 export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
@@ -47,6 +55,24 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
   const [isLoader, setIsLoader] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const [{ options }, dispatch] = usePayPalScriptReducer();
+
+  const getTotal = useCallback(() => {
+    const ws1Price = formFields.technique ? getWsPrice() : 0;
+    const ws2Price = formFields.choreo ? getWsPrice() : 0;
+    const indivTotal = formFields.indiv ? indivPrice * formFields.indivHours : 0;
+    const fee = formFields.payment != 'Bank' && formFields.payment != undefined ? processingFee : 1;
+    return (ws1Price + ws2Price + indivTotal) * fee;
+  }, [formFields]);
+
+  useEffect(() => {
+    formFields.payment === 'PayPal' &&
+      dispatch({
+        type: 'resetOptions',
+        value: { ...options },
+      });
+  }, [getTotal, formFields]);
 
   //Handling close on ESC
   useEffect(() => {
@@ -96,14 +122,6 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
       return { ...prev, [ws]: value };
     });
 
-  const getTotal = useCallback(() => {
-    const ws1Price = formFields.technique ? getWsPrice() : 0;
-    const ws2Price = formFields.choreo ? getWsPrice() : 0;
-    const indivTotal = formFields.indiv ? indivPrice * formFields.indivHours : 0;
-    const fee = formFields.payment != 'Bank' && formFields.payment != undefined ? processingFee : 1;
-    return (ws1Price + ws2Price + indivTotal) * fee;
-  }, [formFields]);
-
   const handleSubmit = async () => {
     setSubmitError(false);
     setIsLoader(true);
@@ -112,23 +130,34 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
       total: getTotal(),
       lng: currentLang,
     };
-    try {
-      setIsBtnDisabled(true);
-      await axios.post('/api/submit', payload).then((res) => {
-        console.log(res.data);
-        setSuccess(true);
-        setTimeout(() => {
-          onClose();
-        }, 5000);
-      });
-    } catch (error) {
-      setSubmitError(true);
-      setIsBtnDisabled(false);
-    } finally {
-      setIsLoader(false);
+    setIsBtnDisabled(true);
+    if (formFields.payment != 'Card') {
+      await axios
+        .post('/api/submit', payload)
+        .then((res) => {
+          console.log(res.data);
+          setSuccess(true);
+          setFormFields(defaultFields);
+          setTimeout(() => {
+            onClose();
+          }, 5000);
+        })
+        .catch((error: any) => {
+          setSubmitError(true);
+          setIsBtnDisabled(false);
+        })
+        .finally(() => setIsLoader(false));
+    } else {
+      await axios
+        .post('api/stripe-session', payload)
+        .then((res) => window.open(res.data.url as string, '_self'))
+        .catch((error: any) => {
+          setSubmitError(true);
+          setIsBtnDisabled(false);
+        })
+        .finally(() => setIsLoader(false));
     }
   };
-
   return (
     <>
       {isLoader && <Loader />}
@@ -213,7 +242,9 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
         </div>
 
         {getTotal() > 0 ? (
-          <span className={form__total}>{t('form.total').toUpperCase() + ': ' + getTotal()}zł</span>
+          <span className={form__total}>
+            {t('form.total').toUpperCase() + ': ' + getTotal()}PLN
+          </span>
         ) : (
           <></>
         )}
@@ -248,14 +279,37 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
             onChange={handleInputChange}
           />
         </fieldset>
-        <button
-          type='button'
-          className={form__submitButton}
-          disabled={isBtnDisabled}
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
+        {formFields.payment === 'PayPal' ? (
+          <PayPalButtons
+            style={{ color: 'gold', height: 45, label: 'checkout' }}
+            fundingSource='paypal'
+            disabled={isBtnDisabled}
+            className={paypalBtn}
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: { value: getTotal().toFixed(2) },
+                  },
+                ],
+                application_context: {},
+              });
+            }}
+            onApprove={async (data, actions) => {
+              await actions.order!.capture();
+              handleSubmit();
+            }}
+          />
+        ) : (
+          <button
+            type='button'
+            className={form__submitButton}
+            disabled={isBtnDisabled}
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        )}
         {submitError && <span className={form__error}>{t('form.oops')}</span>}
         {success && <span className={form__success}>{t('form.success')}</span>}
       </form>
