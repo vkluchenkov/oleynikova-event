@@ -5,7 +5,7 @@ import { appWithTranslation } from 'next-i18next';
 import { Inter } from '@next/font/google';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
-const inter = Inter({ subsets: ['cyrillic', 'latin'] });
+const inter = Inter({ subsets: ['cyrillic', 'latin', 'latin-ext'] });
 
 const App = ({ Component, pageProps }: AppProps) => {
   // Paypal

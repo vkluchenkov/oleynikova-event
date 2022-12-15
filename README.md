@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Description
 
-Fairly simple multilingual landing page for dance event — with a few complications such as sending emails through Sendinblue integration, saving form submissions to Notion and processing PayPal / Stripe payments.
+Fairly simple multilingual landing page for a dance event — with a few complications such as sending emails through Sendinblue integration (emails generated with MJML), saving form submissions in Notion and processing PayPal / Stripe payments.
 
 ## Stack
 
