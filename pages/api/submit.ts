@@ -92,7 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         Private: {
           type: 'number',
-          number: orderPayload.indivHours,
+          number: orderPayload.indiv ? orderPayload.indivHours : 0,
         },
         Total: {
           type: 'number',
