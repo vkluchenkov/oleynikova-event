@@ -22,7 +22,7 @@
   "form": {
     "title": "Registration",
     "wstitle": "Workshops selection",
-    "name": "Name",
+    "name": "Name and Surname",
     "email": "Email",
     "indivHours": "How many hours?",
     "paymenttitle": "Payment method",
