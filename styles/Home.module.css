@@ -91,21 +91,38 @@
   }
 }
 
-@media screen and (min-width: 1900px) {
+@media screen and (min-width: 1920px) {
   .title {
-    font-size: 100px;
+    font-size: 80px;
     line-height: 1;
     max-width: 700px;
   }
 
   .subTitle {
-    font-size: 30px;
+    font-size: 25px;
     line-height: 1.2;
     padding: 15px 0 0;
     margin: 0;
   }
+
   .contentContainer {
-    padding: 250px 10px 0;
+    padding: 200px 10px 0;
+    gap: 35px;
     max-height: 1400px;
+  }
+}
+
+@media screen and (min-width: 1920px) and (min-height: 1200px) {
+  .title {
+    font-size: 100px;
+  }
+
+  .subTitle {
+    font-size: 30px;
+  }
+
+  .contentContainer {
+    padding: 230px 10px 0;
+    gap: 45px;
   }
 }

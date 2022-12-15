@@ -38,12 +38,7 @@
   }
 }
 
-@media screen and (min-width: 1900px) {
-  .footer {
-    padding: 0;
-    margin: 0;
-  }
-
+@media screen and (min-width: 1920px) {
   .address {
     font-size: 24px;
     line-height: 30px;
@@ -52,6 +47,12 @@
   .copyright {
     font-size: 16px;
     line-height: 20px;
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 1920px) and (min-hieght: 1280px) {
+  .copyright {
     padding: 30px;
   }
 }
