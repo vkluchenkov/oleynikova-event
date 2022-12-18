@@ -1,5 +1,6 @@
 .coverImage {
   height: calc(100vh - 303px);
+  height: calc((var(--vh, 1vh) * 100) - 303px);
   min-height: 350px;
   max-height: 600px;
   max-width: 450px;

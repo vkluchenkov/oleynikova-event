@@ -8,7 +8,7 @@ import { Schedule } from '../src/components/Schedule';
 import { Signup } from '../src/components/Signup';
 import { Footer } from '../src/components/Footer';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormPopup } from '../src/components/FormPopup';
 
 const Home: NextPage = () => {
@@ -18,6 +18,23 @@ const Home: NextPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
+
+  const handleVh = () => {
+    if (typeof window != 'undefined') {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+  };
+
+  handleVh();
+
+  // useEffect(() => {
+  //   if (typeof window != 'undefined') {
+  //     handleVh();
+  //     addEventListener('resize', handleVh);
+  //     return () => removeEventListener('resize', handleVh);
+  //   }
+  // }, []);
 
   return (
     <div className={pageContainer}>
