@@ -5,6 +5,7 @@ import { RadioInput } from '../../ui-kit/RadioInput';
 import { TextInput } from '../../ui-kit/TextInput';
 import {
   defaultFields,
+  endDate,
   indivMaxHours,
   indivMinHours,
   indivPrice,
@@ -84,6 +85,17 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
       document.removeEventListener('keydown', handleEscClose);
     };
   }, [onClose]);
+
+  // Disable button after end date
+  useEffect(() => {
+    const today = new Date();
+    if (today > endDate) setIsBtnDisabled(true);
+  });
+
+  // // Disable button if total is 0
+  // useEffect(() => {
+  //   if (getTotal().total === 0) setIsBtnDisabled(true);
+  // }, [getTotal, formFields]);
 
   const handleClickClose = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
@@ -285,7 +297,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
           <PayPalButtons
             style={{ color: 'gold', height: 45, label: 'checkout' }}
             fundingSource='paypal'
-            disabled={isBtnDisabled}
+            disabled={getTotal().grandTotal > 0 ? isBtnDisabled : true}
             className={paypalBtn}
             createOrder={(data, actions) => {
               return actions.order.create({
@@ -306,7 +318,7 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
           <button
             type='button'
             className={form__submitButton}
-            disabled={isBtnDisabled}
+            disabled={getTotal().grandTotal > 0 ? isBtnDisabled : true}
             onClick={handleSubmit}
           >
             {formFields.payment === 'Card'
