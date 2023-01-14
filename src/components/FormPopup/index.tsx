@@ -92,11 +92,6 @@ export const FormPopup: React.FC<FormPopupProps> = ({ onClose }) => {
     if (today > endDate) setIsBtnDisabled(true);
   });
 
-  // // Disable button if total is 0
-  // useEffect(() => {
-  //   if (getTotal().total === 0) setIsBtnDisabled(true);
-  // }, [getTotal, formFields]);
-
   const handleClickClose = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
     target.id == 'registration__form' && onClose();
