@@ -17,5 +17,4 @@ Fairly simple multilingual landing page for a dance event — with a few complic
 - i18n support
 
 ## Live deployment
-
-https://intensive.aliah.dance
+Since the event has finished and this page no longer active you can see the demonstration (with payments deactivated) here: https://demo1.bestpicture.pro
